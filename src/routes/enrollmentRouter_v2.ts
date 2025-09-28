@@ -1,12 +1,11 @@
 import { Router, type Request, type Response } from "express";
-import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
-import type { User, CustomRequest, UserPayload, Enrollment } from "../libs/types.js";
+import type { User, CustomRequest } from "../libs/types.js";
 
 // import database
-import { users, reset_users, enrollments, reset_enrollments, students } from "../db/db.js";
+import { users, enrollments, reset_enrollments, students } from "../db/db.js";
 
 import { authenticateToken } from "../middlewares/authenMiddleware.js";
 
@@ -14,7 +13,7 @@ import { checkRoleAdmin } from "./checkRoleAdminMiddleware.js";
 
 const router = Router();
 
-// GET /api/v2/users
+// GET /api/v2/enrollments
 router.get("/", authenticateToken, checkRoleAdmin, (req: CustomRequest, res: Response) => {
     try{
          const enrollmentInfo = users

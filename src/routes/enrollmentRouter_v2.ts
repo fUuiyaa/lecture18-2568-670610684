@@ -51,7 +51,6 @@ router.get("/:studentId", authenticateToken, (req: CustomRequest, res: Response)
     const studentId = req.params.studentId;
     const user = req.user;
 
-
     const student = students.find(s => s.studentId === studentId);
     if (!student){
       return res.status(404).json({
@@ -60,16 +59,12 @@ router.get("/:studentId", authenticateToken, (req: CustomRequest, res: Response)
       });
     }
 
-
     if(user?.role !== "ADMIN" && user?.studentId !== studentId){
       return res.status(403).json({
         success: false,
         message: "Forbidden access"
       });
     }
-
-
-
 
     return res.status(200).json({
       success: true,
